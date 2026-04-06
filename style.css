@@ -168,13 +168,10 @@ section {
 }
 
 .sates-logo-small {
-  height: 20px;
+  height: 32px;
   width: auto;
   display: inline-block;
-  opacity: 0.7;
   transition: opacity 0.3s ease;
-  filter: invert(1) grayscale(1);
-  mix-blend-mode: screen;
 }
 
 .navbar.scrolled .sates-logo-small {
@@ -329,16 +326,13 @@ section {
 }
 
 .sates-logo-hero {
-  height: 40px;
+  height: 55px;
   width: auto;
-  opacity: 0.5;
-  filter: invert(1) grayscale(1);
-  mix-blend-mode: screen;
   transition: opacity 0.3s ease;
 }
 
 .sates-logo-hero:hover {
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 @keyframes fadeInUp {
@@ -666,16 +660,13 @@ section {
 }
 
 .sates-logo-footer {
-  height: 32px;
+  height: 45px;
   width: auto;
-  opacity: 0.45;
-  filter: invert(1) grayscale(1);
-  mix-blend-mode: screen;
   transition: opacity 0.3s ease;
 }
 
 .sates-logo-footer:hover {
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .footer-copy {
