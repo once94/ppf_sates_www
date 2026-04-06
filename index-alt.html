@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUITWRAP — Tailored Car Dressing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --champagne: #c9b78e;
+  --satin-silver: #a8a8a0;
+  --charcoal-light: #6b6b66;
+  --charcoal: #3a3a38;
+  --deep-black: #1a1a1a;
+  --bg: #111111;
+  --text: #e8e4dc;
+  --text-muted: #8a8680;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── LANGUAGE SWITCHER ─── */
+.lang-switcher {
+  position: fixed;
+  top: 28px;
+  right: 36px;
+  z-index: 100;
+  display: flex;
+  gap: 6px;
+}
+.lang-btn {
+  background: transparent;
+  border: 1px solid var(--charcoal-light);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-transform: uppercase;
+}
+.lang-btn:hover, .lang-btn.active {
+  color: var(--champagne);
+  border-color: var(--champagne);
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 90;
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(17,17,17,0.95), transparent);
+  transition: background 0.4s;
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 22px;
+  letter-spacing: 12px;
+  color: var(--champagne);
+  text-transform: uppercase;
+}
+.nav-logo span {
+  font-weight: 500;
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--champagne); }
+
+/* ─── HERO ─── */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: url('https://images.pexels.com/photos/14995879/pexels-photo-14995879.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(17,17,17,0.82) 0%, rgba(17,17,17,0.7) 50%, rgba(17,17,17,0.92) 100%);
+}
+.hero-monogram {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 120px;
+  font-weight: 300;
+  letter-spacing: 20px;
+  color: var(--champagne);
+  opacity: 0.12;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(36px, 5vw, 72px);
+  letter-spacing: 16px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 16px;
+  animation: fadeUp 1.2s ease-out;
+}
+.hero-tagline {
+  font-size: 13px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+  animation: fadeUp 1.2s ease-out 0.3s both;
+}
+.hero-emotion {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 3vw, 38px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text);
+  max-width: 700px;
+  line-height: 1.5;
+  animation: fadeUp 1.4s ease-out 0.6s both;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--charcoal-light);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: pulse 2s infinite;
+}
+.hero-scroll .line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--champagne), transparent);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ─── SECTIONS ─── */
+section {
+  padding: 120px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(28px, 4vw, 52px);
+  letter-spacing: 4px;
+  margin-bottom: 32px;
+  color: var(--text);
+}
+
+/* ─── SHOWCASE GALLERY ─── */
+.showcase {
+  padding: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.showcase-item {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  cursor: pointer;
+}
+.showcase-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s;
+  filter: brightness(0.7) saturate(1.1);
+}
+.showcase-item:hover img {
+  transform: scale(1.06);
+  filter: brightness(0.85) saturate(1.2);
+}
+.showcase-item .overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(17,17,17,0.85), transparent);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.showcase-item:hover .overlay { opacity: 1; }
+.showcase-item .overlay span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  color: var(--champagne);
+  text-transform: uppercase;
+}
+
+/* ─── LIFESTYLE IMAGE ─── */
+.lifestyle {
+  position: relative;
+  padding: 0;
+  max-width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  overflow: hidden;
+}
+.lifestyle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(0.6) contrast(1.1);
+}
+.lifestyle .lifestyle-text {
+  position: absolute;
+  bottom: 60px;
+  left: 48px;
+  right: 48px;
+  z-index: 2;
+}
+.lifestyle .lifestyle-text h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(24px, 3vw, 42px);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 12px;
+}
+.lifestyle .lifestyle-text p {
+  font-size: 14px;
+  color: var(--satin-silver);
+  letter-spacing: 2px;
+  max-width: 500px;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--champagne), transparent);
+  margin: 0 auto 48px;
+}
+
+/* ─── EMOTION SECTION ─── */
+.emotion {
+  text-align: center;
+  padding: 160px 48px;
+  position: relative;
+}
+.emotion::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--charcoal), transparent);
+}
+.emotion-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 3.5vw, 48px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+.emotion-quote .highlight {
+  color: var(--champagne);
+  font-style: normal;
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-top: 60px;
+}
+.service-card {
+  background: linear-gradient(145deg, rgba(58,58,56,0.15), rgba(26,26,26,0.4));
+  border: 1px solid rgba(201,183,142,0.08);
+  padding: 0;
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+.service-card-img {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+.service-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.55) saturate(1.1);
+  transition: transform 0.6s, filter 0.6s;
+}
+.service-card:hover .service-card-img img {
+  transform: scale(1.05);
+  filter: brightness(0.7) saturate(1.2);
+}
+.service-card-body {
+  padding: 32px 36px 48px;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--champagne), transparent);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.service-card:hover::before { opacity: 1; }
+.service-card:hover {
+  border-color: rgba(201,183,142,0.2);
+  transform: translateY(-4px);
+}
+.service-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: var(--champagne);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.service-card p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* ─── PROCESS ─── */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 60px;
+}
+.step {
+  text-align: center;
+  padding: 48px 24px;
+  position: relative;
+  background: rgba(58,58,56,0.08);
+}
+.step-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 300;
+  color: var(--champagne);
+  opacity: 0.2;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.step h4 {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.step p {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* ─── BY SATES ─── */
+.by-sates {
+  text-align: center;
+  padding: 100px 48px;
+  position: relative;
+}
+.by-sates::before, .by-sates::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--charcoal), transparent);
+}
+.by-sates::before { top: 0; }
+.by-sates::after { bottom: 0; }
+.by-sates p {
+  font-size: 14px;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.9;
+}
+.sates-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  letter-spacing: 6px;
+  color: var(--champagne);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+/* ─── CONTACT ─── */
+.contact {
+  text-align: center;
+}
+.contact-info {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+.contact-item {
+  text-align: center;
+}
+.contact-item .label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--champagne);
+  margin-bottom: 8px;
+}
+.contact-item .value {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+.contact-item a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.contact-item a:hover { color: var(--champagne); }
+
+.cta-btn {
+  display: inline-block;
+  margin-top: 60px;
+  padding: 18px 56px;
+  border: 1px solid var(--champagne);
+  color: var(--champagne);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: all 0.4s ease;
+}
+.cta-btn:hover {
+  background: var(--champagne);
+  color: var(--deep-black);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  text-align: center;
+  padding: 48px;
+  border-top: 1px solid rgba(58,58,56,0.3);
+}
+footer p {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--charcoal-light);
+  text-transform: uppercase;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .lang-switcher { top: 18px; right: 18px; }
+  .lang-btn { padding: 4px 10px; font-size: 10px; }
+  section { padding: 80px 24px; }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .contact-info { gap: 40px; }
+  .hero-monogram { font-size: 80px; }
+  .showcase-grid { grid-template-columns: 1fr; }
+  .lifestyle { height: 50vh; min-height: 300px; }
+  .lifestyle .lifestyle-text { left: 24px; right: 24px; bottom: 32px; }
+}
+@media (max-width: 480px) {
+  .process-steps { grid-template-columns: 1fr; }
+}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE SWITCHER -->
+<div class="lang-switcher">
+  <button class="lang-btn active" onclick="setLang('sk')">SK</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('de')">DE</button>
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">SUIT<span>WRAP</span></div>
+  <ul class="nav-links">
+    <li><a href="#emotion" data-lang-sk="Emócia" data-lang-en="Emotion" data-lang-de="Emotion">Emócia</a></li>
+    <li><a href="#services" data-lang-sk="Služby" data-lang-en="Services" data-lang-de="Leistungen">Služby</a></li>
+    <li><a href="#process" data-lang-sk="Proces" data-lang-en="Process" data-lang-de="Prozess">Proces</a></li>
+    <li><a href="#contact" data-lang-sk="Kontakt" data-lang-en="Contact" data-lang-de="Kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-monogram">SW</div>
+  <div class="hero-content">
+    <h1>SUITWRAP</h1>
+    <p class="hero-tagline" data-lang-sk="Tailored Car Dressing" data-lang-en="Tailored Car Dressing" data-lang-de="Tailored Car Dressing">Tailored Car Dressing</p>
+    <p class="hero-emotion" data-lang-sk="Ten okamih, keď znova uvidíte svoje auto — a zastavíte sa v úžase." data-lang-en="That moment when you see your car again — and you stop in awe." data-lang-de="Dieser Moment, wenn Sie Ihr Auto wiedersehen — und staunend stehen bleiben.">Ten okamih, keď znova uvidíte svoje auto — a zastavíte sa v úžase.</p>
+  </div>
+  <div class="hero-scroll">
+    <div class="line"></div>
+  </div>
+</section>
+
+<!-- EMOTION -->
+<section class="emotion" id="emotion">
+  <div class="section-label" data-lang-sk="Zážitok" data-lang-en="Experience" data-lang-de="Erlebnis">Zážitok</div>
+  <div class="divider"></div>
+  <p class="emotion-quote reveal" data-lang-sk="Neobliekame autá. Odhaľujeme ich <span class='highlight'>pravú identitu</span>. Každý detail, každá krivka, každý odlesk — to všetko má rozprávať váš príbeh." data-lang-en="We don't dress cars. We reveal their <span class='highlight'>true identity</span>. Every detail, every curve, every reflection — all of it tells your story." data-lang-de="Wir kleiden keine Autos ein. Wir enthüllen ihre <span class='highlight'>wahre Identität</span>. Jedes Detail, jede Kurve, jede Spiegelung — alles erzählt Ihre Geschichte.">Neobliekame autá. Odhaľujeme ich <span class="highlight">pravú identitu</span>. Každý detail, každá krivka, každý odlesk — to všetko má rozprávať váš príbeh.</p>
+  <p class="reveal" style="color: var(--text-muted); margin-top: 32px; font-size: 14px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.9;" data-lang-sk="Keď vám auto odovzdáme, nechceme počuť „pekné." Chceme vidieť ten moment ticha. Ten nadýchnutie. To je naša práca." data-lang-en="When we hand your car back, we don't want to hear 'nice.' We want to see that moment of silence. That breath. That's our work." data-lang-de="Wenn wir Ihr Auto zurückgeben, wollen wir nicht ‚schön' hören. Wir wollen diesen Moment der Stille sehen. Dieses Einatmen. Das ist unsere Arbeit.">Keď vám auto odovzdáme, nechceme počuť „pekné." Chceme vidieť ten moment ticha. Ten nadýchnutie. To je naša práca.</p>
+</section>
+
+<!-- SHOWCASE GALLERY -->
+<div class="showcase reveal">
+  <div class="showcase-grid">
+    <div class="showcase-item">
+      <img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&q=80&fit=crop" alt="Color PPF wrap" loading="lazy">
+      <div class="overlay"><span data-lang-sk="Farebné PPF" data-lang-en="Color PPF" data-lang-de="Farb-PPF">Farebné PPF</span></div>
+    </div>
+    <div class="showcase-item">
+      <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&q=80&fit=crop" alt="Satin wrap" loading="lazy">
+      <div class="overlay"><span data-lang-sk="Satin Wrap" data-lang-en="Satin Wrap" data-lang-de="Satin Wrap">Satin Wrap</span></div>
+    </div>
+    <div class="showcase-item">
+      <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80&fit=crop" alt="Matte finish" loading="lazy">
+      <div class="overlay"><span data-lang-sk="Matný Finish" data-lang-en="Matte Finish" data-lang-de="Matt-Finish">Matný Finish</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label" data-lang-sk="Služby" data-lang-en="Services" data-lang-de="Leistungen">Služby</div>
+  <h2 class="section-title reveal" data-lang-sk="Čo robíme" data-lang-en="What We Do" data-lang-de="Was wir tun">Čo robíme</h2>
+  <div class="divider"></div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-card-img"><img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&q=80&fit=crop" alt="PPF Protection" loading="lazy"></div>
+      <div class="service-card-body">
+        <h3 data-lang-sk="PPF Ochrana" data-lang-en="PPF Protection" data-lang-de="PPF Schutz">PPF Ochrana</h3>
+        <p data-lang-sk="Neviditeľný štít pre váš lak. Ochranná fólia, ktorá sa sama lieči, odolá kameňom, škrabancom a UV žiareniu — a pritom nezmení nič na vzhľade vášho auta." data-lang-en="An invisible shield for your paint. Self-healing protective film that resists stones, scratches and UV radiation — without changing anything about your car's appearance." data-lang-de="Ein unsichtbarer Schild für Ihren Lack. Selbstheilende Schutzfolie, die Steinen, Kratzern und UV-Strahlung standhält — ohne das Aussehen Ihres Autos zu verändern.">Neviditeľný štít pre váš lak. Ochranná fólia, ktorá sa sama lieči, odolá kameňom, škrabancom a UV žiareniu — a pritom nezmení nič na vzhľade vášho auta.</p>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-img"><img src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=600&q=80&fit=crop" alt="Color PPF" loading="lazy"></div>
+      <div class="service-card-body">
+        <h3 data-lang-sk="Farebné PPF" data-lang-en="Color PPF" data-lang-de="Farb-PPF">Farebné PPF</h3>
+        <p data-lang-sk="Ochrana a zmena farby v jednom kroku. Prémiové farebné ochranné fólie, ktoré vášmu autu dajú nový charakter — a zároveň chránia originálny lak." data-lang-en="Protection and color change in one step. Premium colored protective films that give your car a new character — while protecting the original paint." data-lang-de="Schutz und Farbwechsel in einem Schritt. Premium-Farbschutzfolien, die Ihrem Auto einen neuen Charakter verleihen — und gleichzeitig den Originallack schützen.">Ochrana a zmena farby v jednom kroku. Prémiové farebné ochranné fólie, ktoré vášmu autu dajú nový charakter — a zároveň chránia originálny lak.</p>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-img"><img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80&fit=crop" alt="Car Wrap" loading="lazy"></div>
+      <div class="service-card-body">
+        <h3 data-lang-sk="Car Wrap" data-lang-en="Car Wrap" data-lang-de="Car Wrap">Car Wrap</h3>
+        <p data-lang-sk="Celopolep. Kompletná zmena farby a štýlu. Od elegantného matného satinu po odvážne metalické odtiene — vaše auto, vaše pravidlá." data-lang-en="Full wrap. Complete color and style transformation. From elegant matte satin to bold metallic hues — your car, your rules." data-lang-de="Vollfolierung. Komplette Farb- und Stiländerung. Von elegantem Matt-Satin bis zu kühnen Metallic-Tönen — Ihr Auto, Ihre Regeln.">Celopolep. Kompletná zmena farby a štýlu. Od elegantného matného satinu po odvážne metalické odtiene — vaše auto, vaše pravidlá.</p>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-card-img"><img src="https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=600&q=80&fit=crop" alt="Detailing" loading="lazy"></div>
+      <div class="service-card-body">
+        <h3 data-lang-sk="Detailing" data-lang-en="Detailing" data-lang-de="Detailing">Detailing</h3>
+        <p data-lang-sk="Finálny dotyk dokonalosti. Korekcia laku, keramická ochrana a starostlivosť o interiér — pretože pravý luxus je v detailoch." data-lang-en="The final touch of perfection. Paint correction, ceramic protection and interior care — because true luxury lies in the details." data-lang-de="Der letzte Schliff der Perfektion. Lackkorrektur, Keramikschutz und Innenraumpflege — denn wahrer Luxus liegt im Detail.">Finálny dotyk dokonalosti. Korekcia laku, keramická ochrana a starostlivosť o interiér — pretože pravý luxus je v detailoch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE IMAGE -->
+<div class="lifestyle reveal">
+  <img src="https://images.pexels.com/photos/8425410/pexels-photo-8425410.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Man in suit beside luxury car" loading="lazy">
+  <div class="lifestyle-text">
+    <h3 data-lang-sk="Oblečte sa. Oblečte auto." data-lang-en="Dress Up. Dress Your Car." data-lang-de="Kleiden Sie sich. Kleiden Sie Ihr Auto.">Oblečte sa. Oblečte auto.</h3>
+    <p data-lang-sk="Pre tých, ktorí berú štýl ako životný postoj." data-lang-en="For those who treat style as a way of life." data-lang-de="Für diejenigen, die Stil als Lebenseinstellung betrachten.">Pre tých, ktorí berú štýl ako životný postoj.</p>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-label" data-lang-sk="Proces" data-lang-en="Process" data-lang-de="Prozess">Proces</div>
+  <h2 class="section-title reveal" data-lang-sk="Štyri kroky k dokonalosti" data-lang-en="Four Steps to Perfection" data-lang-de="Vier Schritte zur Perfektion">Štyri kroky k dokonalosti</h2>
+  <div class="divider"></div>
+  <div class="process-steps">
+    <div class="step reveal">
+      <div class="step-number">01</div>
+      <h4 data-lang-sk="Konzultácia" data-lang-en="Consultation" data-lang-de="Beratung">Konzultácia</h4>
+      <p data-lang-sk="Počúvame vašu víziu. Spoločne vyberieme ideálne riešenie pre vaše auto." data-lang-en="We listen to your vision. Together we choose the ideal solution for your car." data-lang-de="Wir hören Ihre Vision. Gemeinsam wählen wir die ideale Lösung für Ihr Auto.">Počúvame vašu víziu. Spoločne vyberieme ideálne riešenie pre vaše auto.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-number">02</div>
+      <h4 data-lang-sk="Príprava" data-lang-en="Preparation" data-lang-de="Vorbereitung">Príprava</h4>
+      <p data-lang-sk="Dôkladná dekontaminácia a príprava povrchu. Základ pre bezchybný výsledok." data-lang-en="Thorough decontamination and surface preparation. The foundation for a flawless result." data-lang-de="Gründliche Dekontamination und Oberflächenvorbereitung. Die Grundlage für ein makelloses Ergebnis.">Dôkladná dekontaminácia a príprava povrchu. Základ pre bezchybný výsledok.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-number">03</div>
+      <h4 data-lang-sk="Aplikácia" data-lang-en="Application" data-lang-de="Applikation">Aplikácia</h4>
+      <p data-lang-sk="Precízna ručná práca v kontrolovanom prostredí. Každý milimeter sa počíta." data-lang-en="Precise handwork in a controlled environment. Every millimeter counts." data-lang-de="Präzise Handarbeit in kontrollierter Umgebung. Jeder Millimeter zählt.">Precízna ručná práca v kontrolovanom prostredí. Každý milimeter sa počíta.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-number">04</div>
+      <h4 data-lang-sk="Odovzdanie" data-lang-en="Reveal" data-lang-de="Enthüllung">Odovzdanie</h4>
+      <p data-lang-sk="Moment, na ktorý sa tešíme rovnako ako vy. Váš wow moment." data-lang-en="The moment we look forward to as much as you do. Your wow moment." data-lang-de="Der Moment, auf den wir uns genauso freuen wie Sie. Ihr Wow-Moment.">Moment, na ktorý sa tešíme rovnako ako vy. Váš wow moment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BY SATES -->
+<section class="by-sates">
+  <div class="sates-name">by SATES</div>
+  <p class="reveal" data-lang-sk="SUITWRAP je divízia spoločnosti SATES zameraná na prémiové obliekanie automobilov. Spojili sme dlhoročné skúsenosti s vášňou pre dokonalosť, aby sme vytvorili službu, ktorá je nielen o fóliách — ale o zážitku." data-lang-en="SUITWRAP is a division of SATES focused on premium car dressing. We combined years of experience with a passion for perfection to create a service that is not just about films — but about an experience." data-lang-de="SUITWRAP ist eine Abteilung von SATES, die sich auf Premium-Autobekleidung spezialisiert hat. Wir haben langjährige Erfahrung mit einer Leidenschaft für Perfektion kombiniert, um einen Service zu schaffen, der nicht nur von Folien handelt — sondern von einem Erlebnis.">SUITWRAP je divízia spoločnosti SATES zameraná na prémiové obliekanie automobilov. Spojili sme dlhoročné skúsenosti s vášňou pre dokonalosť, aby sme vytvorili službu, ktorá je nielen o fóliách — ale o zážitku.</p>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label" data-lang-sk="Kontakt" data-lang-en="Contact" data-lang-de="Kontakt">Kontakt</div>
+  <h2 class="section-title reveal" data-lang-sk="Dohodnite si konzultáciu" data-lang-en="Schedule a Consultation" data-lang-de="Vereinbaren Sie eine Beratung">Dohodnite si konzultáciu</h2>
+  <div class="divider"></div>
+  <div class="contact-info reveal">
+    <div class="contact-item">
+      <div class="label">E-mail</div>
+      <div class="value"><a href="mailto:info@suitwrap.sk">info@suitwrap.sk</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="label" data-lang-sk="Telefón" data-lang-en="Phone" data-lang-de="Telefon">Telefón</div>
+      <div class="value"><a href="tel:+421900000000">+421 9XX XXX XXX</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="label" data-lang-sk="Lokalita" data-lang-en="Location" data-lang-de="Standort">Lokalita</div>
+      <div class="value" data-lang-sk="Slovensko" data-lang-en="Slovakia" data-lang-de="Slowakei">Slovensko</div>
+    </div>
+  </div>
+  <a href="mailto:info@suitwrap.sk" class="cta-btn reveal" data-lang-sk="Napíšte nám" data-lang-en="Get in Touch" data-lang-de="Kontaktieren Sie uns">Napíšte nám</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 SUITWRAP by SATES &mdash; Tailored Car Dressing</p>
+</footer>
+
+<script>
+// ─── LANGUAGE SWITCHER ───
+let currentLang = 'sk';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+  });
+  document.querySelectorAll('[data-lang-' + lang + ']').forEach(el => {
+    const val = el.getAttribute('data-lang-' + lang);
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      el.placeholder = val;
+    } else {
+      el.innerHTML = val;
+    }
+  });
+  document.documentElement.lang = lang;
+}
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── SMOOTH NAV ───
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
