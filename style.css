@@ -6,6 +6,8 @@
 
 :root {
   --champagne: #c9b78e;
+  --champagne-bright: #c9b78e;
+  --champagne-muted: #8a7e6a;
   --satin-silver: #a8a8a0;
   --charcoal-light: #6b6b66;
   --charcoal: #3a3a38;
@@ -14,6 +16,10 @@
   --text: #e8e4dc;
   --text-muted: #8a8680;
 }
+
+/* ─── DUAL-TONE BRAND TEXT ─── */
+.suit { color: var(--champagne-bright); }
+.wrap { color: var(--champagne-muted); }
 
 html { scroll-behavior: smooth; }
 
@@ -66,24 +72,25 @@ nav {
   transition: background 0.4s;
 }
 .nav-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.nav-logo .brand-name {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
   font-size: 22px;
   letter-spacing: 12px;
-  color: var(--champagne);
   text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 16px;
 }
-.nav-logo span {
+.nav-logo .brand-name .wrap {
   font-weight: 500;
 }
 .nav-sates-logo {
-  height: 28px;
+  height: 18px;
   width: auto;
-  margin-left: 8px;
-  opacity: 0.85;
+  margin-top: 4px;
+  opacity: 0.8;
   transition: opacity 0.3s;
 }
 .nav-sates-logo:hover {
@@ -146,17 +153,27 @@ nav {
   font-size: clamp(36px, 5vw, 72px);
   letter-spacing: 16px;
   text-transform: uppercase;
-  color: var(--champagne);
   margin-bottom: 16px;
   animation: fadeUp 1.2s ease-out;
+}
+.hero h1 .wrap {
+  font-weight: 500;
 }
 .hero-tagline {
   font-size: 13px;
   letter-spacing: 6px;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 48px;
+  margin-bottom: 24px;
   animation: fadeUp 1.2s ease-out 0.3s both;
+}
+.hero-sates-logo {
+  height: 36px;
+  width: auto;
+  display: block;
+  margin: 0 auto 48px;
+  opacity: 0.75;
+  animation: fadeUp 1.2s ease-out 0.45s both;
 }
 .hero-emotion {
   font-family: 'Cormorant Garamond', serif;
